@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movo - 실시간 혼잡도 히트맵 (관리자)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .heatmap-content-wrapper {
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+
+        .heatmap-image-container {
+            background: var(--white-color);
+            padding: 1rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow-medium);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .heatmap-image-container img {
+            max-width: 100%;
+            max-height: 65vh;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .notable-events-container {
+            background: var(--white-color);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .notable-events-container h3 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        #events-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        #events-list li {
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+            position: relative;
+            font-size: 1.1rem;
+        }
+
+        #events-list li::before {
+            content: '🚨';
+            position: absolute;
+            left: 0;
+            top: 2px;
+            font-size: 1.2rem;
+        }
+        
+        #events-list .solution {
+            color: #005f99;
+            font-weight: bold;
+            padding-left: 2rem;
+            margin-top: 0.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        #events-list .solution::before {
+            content: '👩‍🔧';
+            position: absolute;
+            left: 0;
+            top: 2px;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="dashboard.html" class="logo">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M20,19.5C20,18.12,18.88,17,17.5,17H6.5C5.12,17,4,18.12,4,19.5V21H20V19.5M19,8H5L12,2L19,8M8,11V15H16V11H8Z" /></svg>
+                <span>Movo</span>
+            </a>
+            <div>실시간 혼잡도 히트맵 (관리자)</div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1 id="heatmap-title"></h1>
+        <div class="heatmap-content-wrapper">
+            <div class="heatmap-image-container">
+                <img id="heatmap-image" src="" alt="히트맵">
+            </div>
+            <div class="notable-events-container">
+                <h3>특이사항 및 해결방안</h3>
+                <ul id="events-list">
+                    <!-- JS will populate this -->
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>MOVO Project | 관광경영학과 김현재, 이예원</p>
+        <p>&copy; 2024 해양선박빅데이터자료분석</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const heatmapData = {
+                '1': {
+                    title: '1층 실시간 혼잡도',
+                    image: 'file:///C:/Users/%EA%B9%80%ED%98%84%EC%9E%AC/OneDrive/%EB%AC%B8%EC%84%9C/%EC%B9%B4%EC%B9%B4%EC%98%A4%ED%86%A1%20%EB%B0%9B%EC%9D%80%20%ED%8C%8C%EC%9D%BC/Gemini_Generated_Image_n53757n53757n537.svg',
+                    events: [
+                        { "event": "Vitality Bar에 사용자가 급증하고 있습니다.", "solution": "바텐더 1명 추가 배치 권장" },
+                        { "event": "중앙 로비의 체류 시간이 평균보다 깁니다.", "solution": "안내 요원에게 동선 안내 지시" }
+                    ]
+                },
+                '2': {
+                    title: '2층 실시간 혼잡도',
+                    image: 'file:///C:/Users/%EA%B9%80%ED%98%84%EC%9E%AC/OneDrive/%EB%AC%B8%EC%84%9C/%EC%B9%B4%EC%B9%B4%EC%98%A4%ED%86%A1%20%EB%B0%9B%EC%9D%80%20%ED%8C%8C%EC%9D%BC/Gemini_Generated_Image_30watu30watu30wa.svg',
+                    events: [
+                        { "event": "카지노 입구 주변이 혼잡합니다.", "solution": "보안요원 1명 추가 배치 필요" },
+                        { "event": "스페셜티 레스토랑 예약이 가득 찼습니다.", "solution": "워크인 대기 명단 생성 제안" }
+                    ]
+                },
+                '3': {
+                    title: '3층 실시간 혼잡도',
+                    image: 'file:///C:/Users/%EA%B9%80%ED%98%84%EC%9E%AC/OneDrive/%EB%AC%B8%EC%84%9C/%EC%B9%B4%EC%B9%B4%EC%98%A4%ED%86%A1%20%EB%B0%9B%EC%9D%80%20%ED%8C%8C%EC%9D%BC/Gemini_Generated_Image_epunyrepunyrepun.svg',
+                    events: [
+                        { "event": "수영장 선베드 점유율이 90%에 도달했습니다.", "solution": "타월 회수 및 자리 정리 인력 증원" },
+                        { "event": "뷔페 레스토랑 대기 시간이 15분 이상입니다.", "solution": "메인 레스토랑으로 방문 유도" }
+                    ]
+                }
+            };
+
+            const titleElement = document.getElementById('heatmap-title');
+            const heatmapImage = document.getElementById('heatmap-image');
+            const eventsList = document.getElementById('events-list');
+
+            function updateContent(floor) {
+                const data = heatmapData[floor];
+                if (data) {
+                    titleElement.textContent = data.title;
+                    heatmapImage.src = data.image;
+                    
+                    eventsList.innerHTML = '';
+                    data.events.forEach(item => {
+                        const li = document.createElement('li');
+                        li.textContent = item.event;
+                        
+                        const solutionP = document.createElement('p');
+                        solutionP.className = 'solution';
+                        solutionP.textContent = item.solution;
+                        
+                        eventsList.appendChild(li);
+                        eventsList.appendChild(solutionP);
+                    });
+                }
+            }
+
+            const params = new URLSearchParams(window.location.search);
+            const initialFloor = params.get('floor') || '1';
+            updateContent(initialFloor);
+        });
+    </script>
+
+</body>
+</html>
