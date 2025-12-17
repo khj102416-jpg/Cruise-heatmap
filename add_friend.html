@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movo - 친구 추가</title>
+    <style>
+        :root { --primary: #005f99; --accent: #ff9900; --light: #f4f9fc; --text: #333; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Pretendard', sans-serif; line-height: 1.6; color: var(--text); background: var(--light); }
+        header { background: var(--primary); color: white; padding: 1rem 2rem; }
+        nav { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; }
+        .logo { font-size: 1.5rem; font-weight: bold; display: flex; align-items: center; gap: 10px; color: white; text-decoration: none; }
+        section { padding: 4rem 2rem; max-width: 800px; margin: 0 auto; text-align: center; }
+        h2 { text-align: center; color: var(--primary); margin-bottom: 2rem; }
+        .btn { display: inline-block; background: var(--accent); color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; font-weight: bold; margin-top: 20px; cursor: pointer; border: none; font-size: 1.1rem; }
+        
+        #search-result { margin-top: 3rem; }
+        #loading-message { display: none; margin-top: 1rem; color: var(--primary); }
+        
+        .user-list { list-style: none; margin-top: 2rem; text-align: left; }
+        .user-item { background: white; padding: 15px 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .user-item span { font-weight: bold; }
+        .add-btn { background: var(--primary); color: white; padding: 8px 15px; border: none; border-radius: 5px; cursor: pointer; }
+        .add-btn.added { background: #5cb85c; cursor: not-allowed; }
+
+        .request-buttons button {
+            margin-left: 5px;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .accept-btn {
+            background: #5cb85c;
+            color: white;
+        }
+        .decline-btn {
+            background: #d9534f;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="passenger.html" class="logo">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M20,19.5C20,18.12,18.88,17,17.5,17H6.5C5.12,17,4,18.12,4,19.5V21H20V19.5M19,8H5L12,2L19,8M8,11V15H16V11H8Z" /></svg>
+                <span>Movo</span>
+            </a>
+            <div>친구 추가</div>
+        </nav>
+    </header>
+
+    <section>
+        <h2>GPS로 친구 찾기</h2>
+        <p>아래 버튼을 눌러 주변에 있는 친구를 찾아보세요.</p>
+        <button id="find-friends-btn" class="btn">내 주변 친구 찾기</button>
+        <div id="search-result">
+            <p id="loading-message">주변 친구를 찾고 있습니다...</p>
+            <ul id="user-list-container" class="user-list">
+                <!-- JS will populate this -->
+            </ul>
+        </div>
+    </section>
+
+    <section id="received-requests" style="padding-top: 0;">
+        <h2>받은 친구 신청</h2>
+        <ul id="request-list-container" class="user-list">
+            <li class="user-item" data-request-id="101">
+                <span>박서준</span>
+                <div class="request-buttons">
+                    <button class="accept-btn">수락</button>
+                    <button class="decline-btn">거절</button>
+                </div>
+            </li>
+            <li class="user-item" data-request-id="102">
+                <span>김지민</span>
+                <div class="request-buttons">
+                    <button class="accept-btn">수락</button>
+                    <button class="decline-btn">거절</button>
+                </div>
+            </li>
+        </ul>
+    </section>
+
+    <script>
+        const findBtn = document.getElementById('find-friends-btn');
+        const loadingMsg = document.getElementById('loading-message');
+        const userListContainer = document.getElementById('user-list-container');
+        const requestListContainer = document.getElementById('request-list-container');
+
+        const fakeUsers = [
+            { id: 1, name: '김민준' },
+            { id: 2, name: '이서연' },
+            { id: 3, name: '박도윤' },
+            { id: 4, name: '최지우' }
+        ];
+
+        findBtn.addEventListener('click', () => {
+            userListContainer.innerHTML = ''; // Clear previous results
+            loadingMsg.style.display = 'block';
+            findBtn.disabled = true;
+
+            // Simulate GPS search delay
+            setTimeout(() => {
+                loadingMsg.style.display = 'none';
+                findBtn.disabled = false;
+                
+                if (fakeUsers.length === 0) {
+                    userListContainer.innerHTML = '<p>주변에 사용자가 없습니다.</p>';
+                    return;
+                }
+
+                fakeUsers.forEach(user => {
+                    const userItem = document.createElement('li');
+                    userItem.className = 'user-item';
+                    userItem.innerHTML = `
+                        <span>${user.name}</span>
+                        <button class="add-btn" data-user-id="${user.id}">신청</button>
+                    `;
+                    userListContainer.appendChild(userItem);
+                });
+            }, 2000); // 2-second delay
+        });
+
+        userListContainer.addEventListener('click', (e) => {
+            if (e.target.classList.contains('add-btn')) {
+                const btn = e.target;
+                const userName = btn.previousElementSibling.textContent; // Get the user's name
+
+                if (confirm(`'${userName}' 님께 친구 신청을 하실건가요?`)) {
+                    btn.textContent = '신청됨';
+                    btn.classList.add('added');
+                    btn.disabled = true;
+                }
+            }
+        });
+
+        requestListContainer.addEventListener('click', (e) => {
+            if (e.target.classList.contains('accept-btn')) {
+                const buttonContainer = e.target.parentElement;
+                buttonContainer.innerHTML = '<span style="color: #5cb85c; font-weight: bold;">수락됨</span>';
+            }
+            if (e.target.classList.contains('decline-btn')) {
+                const requestItem = e.target.closest('.user-item');
+                requestItem.remove();
+            }
+        });
+    </script>
+
+</body>
+</html>

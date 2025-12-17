@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movo - 혼잡도 및 행동 분석</title>
+    <style>
+        :root { --primary: #005f99; --accent: #ff9900; --light: #f4f9fc; --text: #333; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Pretendard', sans-serif; line-height: 1.6; color: var(--text); background: var(--light); }
+        header { background: var(--primary); color: white; padding: 1rem 2rem; }
+        nav { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; }
+        .logo { font-size: 1.5rem; font-weight: bold; display: flex; align-items: center; gap: 10px; color: white; text-decoration: none; }
+        section { padding: 4rem 2rem; max-width: 1000px; margin: 0 auto; }
+        h2 { text-align: center; color: var(--primary); margin-bottom: 2rem; border-bottom: 2px solid var(--accent); display: inline-block; padding-bottom: 10px; }
+        .center-wrap { text-align: center; }
+        .card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 30px; }
+        .card h3 { color: var(--primary); margin-bottom: 10px; }
+
+        .pie-chart-container { display: flex; align-items: center; gap: 20px; margin-top: 15px; }
+        .pie-chart { width: 200px; height: 200px; border-radius: 50%; flex-shrink: 0; }
+        .legend { font-size: 0.9rem; }
+        .legend-item { display: flex; align-items: center; margin-bottom: 5px; }
+        .legend-color { width: 15px; height: 15px; margin-right: 8px; border-radius: 3px; }
+        .chart-descriptions { margin-top: 20px; font-size: 0.9rem; text-align: left; padding-left: 10px; line-height: 1.8; }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="dashboard.html" class="logo">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M20,19.5C20,18.12,18.88,17,17.5,17H6.5C5.12,17,4,18.12,4,19.5V21H20V19.5M19,8H5L12,2L19,8M8,11V15H16V11H8Z" /></svg>
+                <span>Movo</span>
+            </a>
+            <div>혼잡도 및 행동 분석</div>
+        </nav>
+    </header>
+
+    <section>
+        <div class="center-wrap">
+            <h2>혼잡도 및 행동 분석 예상</h2>
+        </div>
+        
+        <div class="card">
+            <h3>시간대별 인구 혼잡도 예상</h3>
+            <table class="congestion-table" style="width:100%; text-align: left; border-collapse: collapse; margin-top: 15px;">
+                <tr style="border-bottom: 1px solid #ddd;">
+                    <th style="padding: 8px;">시간대</th>
+                    <th style="padding: 8px;">1위</th>
+                    <th style="padding: 8px;">2위</th>
+                    <th style="padding: 8px;">3위</th>
+                </tr>
+                <tr style="border-bottom: 1px solid #eee;"><td style="padding: 8px;">아침 (07-09시)</td><td style="padding: 8px;">뷔페</td><td style="padding: 8px;">소형 레스토랑</td><td style="padding: 8px;">피트니스</td></tr>
+                <tr style="border-bottom: 1px solid #eee;"><td style="padding: 8px;">점심 (12-14시)</td><td style="padding: 8px;">메인 레스토랑</td><td style="padding: 8px;">뷔페</td><td style="padding: 8px;">수영장</td></tr>
+                <tr style="border-bottom: 1px solid #eee;"><td style="padding: 8px;">오후 (14-17시)</td><td style="padding: 8px;">수영장</td><td style="padding: 8px;">라운지/바</td><td style="padding: 8px;">쇼핑몰</td></tr>
+                <tr style="border-bottom: 1px solid #eee;"><td style="padding: 8px;">저녁 (18-22시)</td><td style="padding: 8px;">공연장</td><td style="padding: 8px;">메인 레스토랑</td><td style="padding: 8px;">카지노</td></tr>
+                <tr><td style="padding: 8px;">밤 (21-01시)</td><td style="padding: 8px;">카지노</td><td style="padding: 8px;">라운지/바</td><td style="padding: 8px;">야외 갑판</td></tr>
+            </table>
+        </div>
+
+        <div class="card">
+            <h3>이용자별 행동 경향</h3>
+
+            <div style="display: flex; justify-content: space-around; gap: 20px; flex-wrap: wrap;">
+                <!-- Region Chart -->
+                <div style="flex: 1; min-width: 300px;">
+                    <h4 style="margin-top: 15px; margin-bottom: 5px; color: var(--primary); text-align: center;">출신 대륙별 비율</h4>
+                    <div class="pie-chart-container" style="justify-content: center;">
+                        <div class="pie-chart" style="background: conic-gradient(#005f99 0% 60%, #ff9900 60% 100%);"></div>
+                        <div class="legend">
+                            <div class="legend-item">
+                                <div class="legend-color" style="background-color: #005f99;"></div>
+                                <span>아시아권 (60%)</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color" style="background-color: #ff9900;"></div>
+                                <span>서양권 (40%)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Group Type Chart -->
+                <div style="flex: 1; min-width: 300px;">
+                    <h4 style="margin-top: 15px; margin-bottom: 5px; color: var(--primary); text-align: center;">동반 유형별 비율</h4>
+                    <div class="pie-chart-container" style="justify-content: center;">
+                        <div class="pie-chart" style="background: conic-gradient(#005f99 0% 40%, #ff9900 40% 65%, #3c9ee5 65% 90%, #f4c272 90% 100%);"></div>
+                        <div class="legend">
+                            <div class="legend-item">
+                                <div class="legend-color" style="background-color: #005f99;"></div>
+                                <span>가족 단위 (40%)</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color" style="background-color: #ff9900;"></div>
+                                <span>커플 (25%)</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color" style="background-color: #3c9ee5;"></div>
+                                <span>친구 (25%)</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color" style="background-color: #f4c272;"></div>
+                                <span>혼자 (10%)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h4 style="margin-top: 25px; margin-bottom: 5px; color: var(--primary);">특징 예상</h4>
+            <p style="text-align: left; padding-left: 10px; line-height: 1.8; margin-bottom: 25px;">
+                현재 크루즈 이용객 중 <strong>아시아권 승객이 60%로 가장 높은 비중</strong>을 차지하며, 이들은 이른 조식, 쇼핑 및 카지노 이용을 선호하는 경향을 보입니다.
+                또한, <strong>가족 단위 승객이 40%로 가장 많은 동반 유형</strong>이며, 수영장과 뷔페 시설 이용에 집중하는 특징을 가집니다.
+            </p>
+
+            <h4 style="margin-top: 25px; margin-bottom: 5px; color: var(--primary);">상세 특징</h4>
+            <div class="chart-descriptions" style="margin-top: 0; padding-left: 0;">
+                <p><strong>- 아시아권:</strong> 이른 조식, 쇼핑·카지노 선호</p>
+                <p><strong>- 서양권:</strong> 엔터테인먼트·바 이용률 높음</p>
+                <p><strong>- 가족 단위:</strong> 수영장·뷔페 집중</p>
+                <p><strong>- 커플:</strong> 스파, 파인 다이닝 등</p>
+                <p><strong>- 친구:</strong> 바, 카지노, 액티비티 등</p>
+                <p><strong>- 혼자:</strong> 휴식, 독서, 피트니스 등</p>
+            </div>
+        </div>
+    </section>
+
+    <footer style="background: #333; color: #ccc; text-align: center; padding: 2rem; margin-top: 2rem;">
+        <p>MOVO Project | 관광경영학과 김현재, 이예원</p>
+        <p>&copy; 2024 해양선박빅데이터자료분석</p>
+    </footer>
+
+</body>
+</html>

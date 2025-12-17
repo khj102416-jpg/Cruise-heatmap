@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movo - Welcome Aboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('C:\\Users\\김현재\\OneDrive\\문서\\카카오톡 받은 파일\\img (1).svg') center/cover;
+            color: var(--white-color);
+            text-align: center;
+            padding: 10rem 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            box-shadow: var(--shadow-light);
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: var(--light-gray);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M20,19.5C20,18.12,18.88,17,17.5,17H6.5C5.12,17,4,18.12,4,19.5V21H20V19.5M19,8H5L12,2L19,8M8,11V15H16V11H8Z" /></svg>
+                <span>Movo</span>
+            </a>
+            <div>Welcome Aboard</div>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <h1>Welcome to Movo</h1>
+        <p>실시간 데이터 분석으로 더 스마트하고 쾌적한 선상 경험을 즐겨보세요.</p>
+    </div>
+
+    <div class="container">
+        <section id="features">
+            <h2>Movo 서비스</h2>
+            <div class="grid-box">
+                <a href="heatmap.html?floor=1" class="card">
+                    <h3>🔥 실시간 혼잡도</h3>
+                    <p>선내 구역별 혼잡도를 실시간 히트맵으로 확인하세요.</p>
+                </a>
+                <a href="add_friend.html" class="card">
+                    <h3>➕ 친구 추가</h3>
+                    <p>친구를 추가하여 위치를 공유하고 일정을 함께 관리하세요.</p>
+                </a>
+            </div>
+        </section>
+
+        <section id="data-model">
+            <h2>선박 정보</h2>
+            <div class="card">
+                <h3>주요 시설 최대 수용 인원</h3>
+                <table>
+                    <tr>
+                        <th>시설</th>
+                        <th>수용 인원</th>
+                    </tr>
+                    <tr><td>메인 레스토랑</td><td>350–600명</td></tr>
+                    <tr><td>뷔페</td><td>300–450명</td></tr>
+                    <tr><td>극장</td><td>400–800석</td></tr>
+                    <tr><td>카지노</td><td>150–250명</td></tr>
+                    <tr><td>스파/피트니스</td><td>40–120명</td></tr>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>MOVO Project | 관광경영학과 김현재, 이예원</p>
+        <p>&copy; 2024 해양선박빅데이터자료분석</p>
+    </footer>
+
+</body>
+</html>
